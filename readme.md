@@ -16,3 +16,12 @@ jQuery was used to simplify things like DOM manipulation, event handling, animat
  - Another challenge with SPAs is navigation and browser history. 
  - SPAs can pose challenges for SEO. Search engines like Google can have difficulty indexing dynamically loaded content because they may not execute JavaScript properly or may miss content that isn't included in the initial HTML page. This can lead to pages not being indexed correctly.
  - Performance is another consideration. An SPA has to load its JavaScript before it can render anything, so a large bundle leaves the user looking at a blank screen for a longer period of time.
+
+## What Is React, and What Is It Commonly Used For?
+React is one of the most popular JavaScript libraries for building user interfaces and web applications. Originally developed at Facebook, now Meta, React has gained huge popularity in web development due to its efficiency, flexibility, and features.
+
+Questions:
+1) What is one of the key advantages of React?
+It uses a virtual DOM to improve performance and efficiency.
+2) What is the purpose of state in React?
+State tracks and updates data that affects how a component renders and behaves.
