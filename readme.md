@@ -25,3 +25,85 @@ Questions:
 It uses a virtual DOM to improve performance and efficiency.
 2) What is the purpose of state in React?
 State tracks and updates data that affects how a component renders and behaves.
+
+## What Are Components in React
+Components are the building blocks of React applications that allow developers to break down complex user interfaces into smaller, manageable pieces, making it easier to develop and maintain large-scale applications.
+
+The two types of components in React are functional and class-based components. In modern React, developers use functional components
+
+This UI is described using JSX, a syntax extension for JavaScript that looks similar to HTML but allows you to write UI elements in a more declarative way.
+
+example:
+```
+function Greeting() {
+  const name = "John";
+  return (
+    <h1 className="title">
+      {/* The result will be Hello John */}
+      Hello {name}
+    </h1>
+  );
+}
+```
+
+### Component Naming
+Use capital letter at the beginning of the component name. 
+This is because React treats components with a capital letter as custom components, while elements with lowercase letters are considered built-in HTML elements.
+When React encounters a lowercase tag, like <div> or <span>, it assumes it's a standard HTML element. However, if the component name starts with a capital letter, React will treat it as a user-defined component and render it accordingly. 
+
+### Using a Component
+To use this Greeting component in our application, we would write something like this:
+```<Greeting />```
+
+### Rendering Multiple Elements
+example:
+```
+function Greeting() {
+  const name = "John";
+  // This will throw an error
+  return (
+    <h1>Hello {name}</h1>
+    <p>Nice to meet you.</p>
+  );
+}
+```
+We are trying to add another sentence of Nice to meet you but it is not rendering on the page correctly.
+
+There seems to be an error message instead. The error message says Adjacent JSX elements must be wrapped in an enclosing tag.
+
+The reason why you are getting that error message is because multiple sibling elements need to be wrapped in a parent element. While you could wrap the h1 and p elements in a simple div, there is another way to satisfy that requirement.
+
+### React Fragments
+React fragments are used to group elements together. Here is what the revised example will look like:
+```
+import { Fragment } from "react";
+
+function Greeting() {
+  const name = "John";
+  return (
+    <Fragment>
+      <h1>Hello {name}</h1>
+      <p>Nice to meet you.</p>
+    </Fragment>
+  );
+}
+```
+You can also choose to use empty JSX tags which can serve as shorthand for fragments:
+```
+function Greeting() {
+  const name = "John";
+  return (
+    <>
+      <h1>Hello {name}</h1>
+      <p>Nice to meet you.</p>
+    </>
+  );
+}
+```
+Questions:
+1) What is the primary reason React uses className instead of class for HTML elements in JSX?
+class is a reserved keyword in JavaScript.
+2) In the context of React components, what is JSX?
+A syntax extension for JavaScript that looks similar to HTML.
+3) How would you render a Message component in React?
+<Message />
