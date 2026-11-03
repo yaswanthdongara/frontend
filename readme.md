@@ -102,8 +102,84 @@ function Greeting() {
 ```
 Questions:
 1) What is the primary reason React uses className instead of class for HTML elements in JSX?
-class is a reserved keyword in JavaScript.
+- class is a reserved keyword in JavaScript.
 2) In the context of React components, what is JSX?
-A syntax extension for JavaScript that looks similar to HTML.
+- A syntax extension for JavaScript that looks similar to HTML.
 3) How would you render a Message component in React?
-<Message />
+- <Message />
+
+## How Do Default and Named Exports Work in React Components?
+An export makes a component available to other files. An import allows a file to use a component that was exported elsewhere. In React projects, this is how components are reused and combined to build user interfaces.
+### Using Default Exports
+If we want to use our Cat component in another file, we need to first export it like this:
+```
+function Cat() {
+  return (
+    <div className="card">
+      <h2>Mr. Whiskers</h2>
+      <img
+        src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/running-cats.jpg"
+        alt="Cats walking on dirt ground near a bundle of straw."
+      />
+    </div>
+  );
+}
+export default Cat;
+```
+You can also choose to export the component on the same line as the component definition like this:
+```
+export default function Cat() {
+  return (
+    <div className="card">
+      <h2>Mr. Whiskers</h2>
+      <img
+        src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/running-cats.jpg"
+        alt="Cats walking on dirt ground near a bundle of straw."
+      />
+    </div>
+  );
+}
+```
+### Importing a Default Export
+```
+import Cat from "./Cat";
+```
+### Using Named Exports
+Unlike default exports, these must be imported using the exact name they were exported with (unless you rename them using the as keyword).
+```
+// Animals.jsx
+export function Cat() {
+  return <h2>Mr. Whiskers</h2>;
+}
+
+export function Dog() {
+  return <h2>Fido</h2>;
+}
+```
+We use the export keyword individually on each component. To use these in another file, we import them using curly braces:
+```
+import { Cat, Dog } from "./Animals";
+
+export default function App() {
+  return (
+    <div>
+      <Cat />
+      <Dog />
+    </div>
+  );
+}
+```
+When importing mixed exports, the default export comes first (without braces), followed by the named exports (inside braces):
+```
+// App.jsx
+import Cat, { Dog } from "./Animals";
+
+export default function App() {
+  return (
+    <div>
+      <Cat />
+      <Dog />
+    </div>
+  );
+}
+```
