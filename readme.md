@@ -183,3 +183,29 @@ export default function App() {
   );
 }
 ```
+## What Is Vite?
+One of the most popular tools for setting up projects is Vite. Vite, which means "fast" in French, is a build tool that aims to provide a faster development experience for modern web projects.
+### Creating a New React Project
+```
+npm create vite@latest my-react-app -- --template react
+```
+This command creates a new React project named my-react-app using Vite's React template.
+
+You can then open up the new project and see the React boilerplate code that Vite has provided for you.
+
+The great thing about Vite is that it will only provide the files that are absolutely necessary to get started with your React project.
+### Installing Dependencies
+It installs the dependencies listed in the package.json file.
+```
+npm install
+```
+### The package.json File
+The package.json file is a key configuration file in projects that contains metadata about your project, including its name, version, and dependencies. It also defines scripts, licensing information, and other settings that help manage the project and its dependencies.
+
+### The node_modules Folder
+Once the dependencies are installed, you should notice a new folder in your project called node_modules.
+
+The node_modules folder is where all the packages and libraries required by your project are stored. This folder contains the actual code for the dependencies listed in your package.json file, including both your project's direct dependencies and any dependencies of those dependencies.
+
+### Running the Project
+To run your project, run the npm run dev command and open up a new browser tab at http://localhost:5173/.
