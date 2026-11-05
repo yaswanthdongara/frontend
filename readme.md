@@ -209,3 +209,112 @@ The node_modules folder is where all the packages and libraries required by your
 
 ### Running the Project
 To run your project, run the npm run dev command and open up a new browser tab at http://localhost:5173/.
+
+## How Do You Pass Props from a Parent Component to a Child Component in React?
+We can choose to nest this component inside another parent component or the root component like this:
+```
+function App() {
+  return <Greeting />;
+}
+
+function Greeting() {
+  const developerName = "Jessica";
+  return <h1>Hi {developerName}!</h1>;
+}
+```
+### Why Use Props?
+While this code will run fine and display the result of Hi Jessica! on the screen, it is not that flexible of a component.
+
+What if we wanted to display a different name like Naomi, Tom, or Oliver? This is where React props comes in. Props, which is short for properties, is the way for parent components to pass data down to the child component. Props can be of any type: strings, numbers, booleans, objects, or arrays.
+
+### Passing Props to a Child Component
+```
+function App() {
+  return <Greeting name="Jessica" />;
+}
+
+export default App;
+
+function Greeting(props) {
+  console.log(props);
+  return <h1>Hi {props.name}!</h1>;
+}
+```
+For the child component called Greeting we are now using props.name instead of hardcoding the name "Jessica". We are also logging props to the console which is showing as an object.
+
+Then, inside of the parent App component, we are passing the value to the name prop so it can be passed down to the child. The result will be the same on the screen like earlier, but now we have created a more flexible component.
+### Reusing the Child Component
+```
+function App() {
+  return (
+    <>
+      <Greeting name="Naomi" />
+      <Greeting name="Tom" />
+      <Greeting name="Jessica" />
+      <Greeting name="Oliver" />
+    </>
+  );
+}
+```
+### Destructuring Props
+```
+function Greeting({ name }) {
+  return <h1>Hi {name}!</h1>;
+}
+```
+### The children Prop
+React also provides a special prop called children. Any JSX you place between a component's opening and closing tags is passed to the component as children.
+```
+function Card({ children }) {
+  return <div className="card">{children}</div>;
+}
+
+function App() {
+  return (
+    <Card>
+      <h2>Hello</h2>
+    </Card>
+  );
+}
+```
+In this case, the JSX inside <Card>...</Card> becomes the children prop. The rendered output in the DOM will be:
+```
+<div class="card">
+  <h2>Hello</h2>
+</div>
+```
+### Passing Multiple Props With the Spread Operator
+```
+function DeveloperCard({ name, age, country }) {
+  return (
+    <div className="developer-card">
+      <h1>Developer: {name}</h1>
+      <p>Age: {age}</p>
+      <p>Country: {country}</p>
+    </div>
+  );
+}
+
+function App() {
+  const developerObj = {
+    name: "Alice",
+    age: 30,
+    country: "USA",
+  };
+
+  return (
+    <div className="App">
+      <DeveloperCard {...developerObj} />
+    </div>
+  );
+}
+```
+This is particularly useful when working with arrays of objects and passing multiple sets of properties to child components. For example, you might have a list of developers where each object in the array has the same structure but represents a different person.
+#### Using props in React makes your components more flexible and reusable, allowing you to build more complex UIs. However, it's important to note that props are immutable, meaning they cannot be changed once passed to a component. If you need to handle user input and modify data, you should use state instead. 
+Questions:
+1) In React, how do you pass a prop named message with the string Hello to a child component?
+```<ChildComponent message="Hello" />```
+2) How would you access a prop named userName inside a functional child component, assuming the props are passed as a props object?
+```props.userName```
+3) What is the correct way to pass all properties of an object as individual props to a child component?
+```<ChildComponent {...objectName} />```
