@@ -318,3 +318,35 @@ Questions:
 ```props.userName```
 3) What is the correct way to pass all properties of an object as individual props to a child component?
 ```<ChildComponent {...objectName} />```
+
+## How Does Conditional Rendering Work in React Components?
+Conditional rendering in React allows you to create dynamic user interfaces. It is used to show different content based on certain conditions or states within your application.
+
+The most common approaches of using conditional rendering includes using if statements, the ternary (?:) operator, and logical AND (&&) operator.
+
+The simplest form of conditional rendering uses an if statement. Here's an example:
+```
+function Greeting({ isLoggedIn }) {
+  if (isLoggedIn) {
+    return <h1>Welcome back!</h1>;
+  }
+  return <h1>Please sign in</h1>;
+}
+```
+For simpler conditions, the ternary operator (?:) is often used directly within JSX. It allows for inline conditional rendering, which can make your code more concise:
+```
+function Greeting({ isLoggedIn }) {
+  return <h1>{isLoggedIn ? "Welcome back!" : "Please sign in."}</h1>;
+}
+```
+Another common pattern for conditional rendering is using the logical AND (&&) operator. This is particularly useful when you want to render something, or nothing, based on a condition:
+```
+function Notification({ message }) {
+  return (
+    <div>
+      {message && <p>{message}</p>}
+    </div>
+  );
+}
+```
+
