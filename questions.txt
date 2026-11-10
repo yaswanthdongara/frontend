@@ -1,0 +1,8 @@
+1) How does React handle events consistently across different browsers?
+A) Through its Synthetic Event System.
+
+2) How can you prevent default behaviors, like a browser refresh in React?
+A) By calling the preventDefault() method.
+
+3) How does React differ from standard HTML in naming event attributes?
+A) React uses camelCase event names like onClick and onSubmit.
