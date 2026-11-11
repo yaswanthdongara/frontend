@@ -6,3 +6,9 @@ A) By calling the preventDefault() method.
 
 3) How does React differ from standard HTML in naming event attributes?
 A) React uses camelCase event names like onClick and onSubmit.
+
+4) In which version of React were hooks introduced, allowing state to be used in functional components?
+A) React 16.8
+
+5) What does state represent in a React component?
+A) Dynamic data that triggers re-renders when changed.

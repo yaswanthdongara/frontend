@@ -535,3 +535,82 @@ function handleDelete(id) {
 It's fine to use inline event handlers in React because React efficiently manages re-renders and avoids performance issues.
 
 In vanilla JavaScript, inline event handlers can lead to performance issues by creating new functions on every render, as there is no virtual DOM to optimize the process.
+------------------------------------------------------------------------------------------------------------------------------------------
+12-Nov-2026
+## What is State, and How Does the useState Hook Work?
+State is one of the most important fundamentals of React and other front-end frameworks. It's like the brain of a component, meaning it holds information that can change over time and controls how the components behave and look.
+
+Let's look into what state is and how the useState hook lets you work with it.
+
+State represents the dynamic data in your React component, like the value from a user input, data fetched from an API, or an item in a to-do list.
+
+Whenever the state changes, React re-renders the component without reloading the page to reflect those changes in the user interface. This reactivity makes your app interactive.
+
+### The useState Hook
+The useState hook is a function that lets you declare state variables in functional components. 
+
+Before hooks, you could only use state in class components. But with the introduction of hooks since React 16.8, you can use state in functional components by using the useState hook.
+
+To use the useState hook, you need to import it from React:
+```import { useState } from "react";```
+You can also import React itself and get access to the useState hook as a property:
+```import React from "react";```
+Declaring a State Variable
+Here's how you can declare a state variable when you import useState:
+```const [stateVariable, setStateFunction] = useState(initialValue);```
+And here's how you can declare a state variable when you import React:
+```const [stateVariable, setStateFunction] = React.useState(initialValue);```
+In the state variable you have the following:
+
+- stateVariable holds the current state value
+- setStateFunction (the setter function) updates the state variable
+- initialValue sets the initial state
+### State Scope and Rules of Hooks
+Note that the state in a React component is private, and is isolated to each component instance. This means that, if you render the same component twice, the state component of one does not affect the other. This also means that, if you'd like to share state between components, then you'd need to lift the state up to a common parent and pass it down as props.
+
+Another thing is that hooks must be called at the top level of a component, just before the return keyword, to keep the state and effects consistent across renders. This means you can't use state inside loops, conditions, or nested functions.
+### Example: A Counter Component
+Here's an example of managing state with the useState hook in a Counter component:
+```
+// Importing the useState hook
+import { useState } from "react";
+
+function Counter() {
+  const initialValue = 0;
+
+  // The state variable and setter function
+  const [count, setCount] = useState(initialValue);
+
+  return (
+    <div>
+      {/* Display current state value */}
+      <h2>{count}</h2>
+
+      <button onClick={() => setCount(count - 1)}>Decrement</button>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+
+export default Counter;
+```
+### Managing Multiple State Variables
+You can manage multiple pieces of state by calling the useState hook multiple times. This is especially important when you have unrelated state variables:
+function UserProfile() {
+  const [isOnline, setIsOnline] = useState(false);
+  const [notifications, setNotifications] = useState(0);
+
+  // The rest of the component logic
+}
+But in this case, it's best to combine the states since they're all part of the same form:
+```
+function SignUpForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    username: "",
+    email: "",
+  });
+
+  // The rest of the component logic
+}
+```
