@@ -1,3 +1,4 @@
+copyrights: source&owner: fcc(freecodecamp)
 ## What Are Libraries?
 Libraries are generally more focused on providing solutions to specific tasks, such as manipulating the DOM, handling events, or managing AJAX requests.
 An example of a JavaScript library is jQuery.
