@@ -481,3 +481,57 @@ Questions:
 - They allow for easy dynamic styling based on component state or props.
 2) How are inline styles applied to a React element?
 - Using the style attribute with a JavaScript object.
+--------------------------------------------------------------------------------------------------------------------------------------------
+12-Nov-2026
+## How Do Events Work in React?
+In React, event handlers work in a similar way to native browser events, but with a few tweaks.
+Instead of using lowercase event attribute names like onclick and onsubmit, React uses camelCase, like onClick and onSubmit.
+In addition, instead of using strings to specify the kind of event, React expects a function for the event handler.
+The event handler function is passed to the element as a prop, and the event type like onClick or onSubmit is used as an attribute in JSX.
+### Writing an Event Handler
+Here is a reminder of how to work with a click event in regular HTML:
+```<button onclick="alert('Button clicked!')">Click Me</button>```
+And here is how you do the same in React:
+```
+function handleClick() {
+  console.log("Button clicked!");
+}
+
+<button onClick={handleClick}>Click Me</button>;
+```
+In React, event handler functions usually start with the prefix handle to indicate they are responsible for handling events, like handleClick or handleSubmit.
+### The Synthetic Event Object
+When a user action triggers an event, React passes a Synthetic Event object to your handler. This object behaves much like the native event object in vanilla JavaScript, providing properties like type, target, and currentTarget.
+
+You can pass event as a parameter to the handler function and log it to the console to take a look at its structure:
+```
+function handleClick(event) {
+  console.log(event);
+}
+```
+### Preventing Default Behavior and Bubbling
+To prevent default behaviors like browser refresh during an onSubmit event, for example, you can call the preventDefault() method:
+```
+function handleSubmit(event) {
+  event.preventDefault();
+  console.log("Form submitted!");
+}
+
+<form onSubmit={handleSubmit}>
+  <input type="text" />
+  <button>Submit</button>
+</form>;
+```
+You can also stop an event from bubbling up to parent elements by calling event.stopPropagation().
+### Passing Data to Event Handlers
+Sometimes, while handling special cases like delete and edit features, you might want to pass extra data to an event handler. You can do this by wrapping the handler in an inline arrow function:
+```
+function handleDelete(id) {
+  console.log("Deleting item:", id);
+}
+
+<button onClick={() => handleDelete(1)}>Delete Item</button>;
+```
+It's fine to use inline event handlers in React because React efficiently manages re-renders and avoids performance issues.
+
+In vanilla JavaScript, inline event handlers can lead to performance issues by creating new functions on every render, as there is no virtual DOM to optimize the process.
