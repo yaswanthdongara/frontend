@@ -417,3 +417,67 @@ Questions:
 - map()
 3) When rendering a list of items that have unique IDs, what is considered the best practice for the key prop?
 - Use the item's unique ID.
+-------------------------------------------------------------------------------------------------------------------------------------------
+12-Nov-2026
+## How Do Inline Styles Work in React?
+React's approach to inline styles involves using JavaScript objects to define styles, rather than traditional CSS strings. This means that instead of writing styles as you would in a CSS file, you create a JavaScript object where the keys are camel cased versions of CSS property names, and the values are the strings of CSS values.
+
+Here is an example of how you can use inline styles for a Button component:
+```
+function Button({ buttonText }) {
+  const defaultStyles = {
+    backgroundColor: "#007BFF",
+    color: "white",
+    border: "none",
+    borderRadius: "4px",
+    padding: "10px 20px",
+    fontSize: "16px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    transition: "background-color 0.3s ease",
+  };
+
+  return <button style={defaultStyles}>{buttonText}</button>;
+}
+```
+In this example, a style object called defaultStyles is defined. You then apply these styles to a button element using the style attribute. React takes care of applying these styles to the element when it renders.
+
+You can also choose to pass in an object directly to the style attribute. Here is what a revised example would look like:
+```
+function Button({ buttonText }) {
+  return (
+    <button
+      style={{
+        backgroundColor: "#007BFF",
+        color: "white",
+      }}
+    >
+      {buttonText}
+    </button>
+  );
+}
+```
+Notice the double curly braces {{}} in the style attribute. The outer braces indicate a JavaScript expression in JSX, while the inner braces define a JavaScript object literal. This syntax allows you to embed JavaScript objects directly in JSX attributes.
+#### It's important to note that while CSS property names are typically written in kebab case, like font-size, React's inline styles use camel case, like fontSize. This is because the style object is a JavaScript object, and kebab case names are not valid as object keys in JavaScript without using quotes.
+A great advantage of inline styles in React is that they support dynamic styling based on a component state or props. For example:
+```
+function DynamicButton({ isActive }) {
+  const buttonStyles = {
+    backgroundColor: isActive ? "green" : "red",
+    color: "white",
+    padding: "10px 15px",
+    border: "none",
+    cursor: "pointer",
+  };
+
+  return <button style={buttonStyles}>Login</button>;
+}
+```
+In this example, the button's background color changes based on the isActive prop. This kind of dynamic styling can be powerful for creating interactive and responsive user interfaces.
+
+In summary, inline styles in React provide a powerful way to apply and manipulate styles directly within your components. They use JavaScript objects instead of CSS strings, require camel cased property names, and can easily incorporate dynamic values. They're an essential tool in a React developer's toolkit, especially for creating highly customized and interactive user interfaces.
+Questions:
+1) What is an advantage of using inline styles in React?
+- They allow for easy dynamic styling based on component state or props.
+2) How are inline styles applied to a React element?
+- Using the style attribute with a JavaScript object.
