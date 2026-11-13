@@ -615,3 +615,26 @@ function SignUpForm() {
   // The rest of the component logic
 }
 ```
+----------------------------------------------------------------------------------------------------------------------------------------------
+13-Nov-2026
+## What Is Rendering in React, and How Are Components Displayed on the Screen?
+In React, rendering is the process by which components appear in the user interface (UI), usually the browser.
+
+React takes all your JavaScript, JSX, and CSS code, figures out how it should look, and then displays it in the user interface.
+
+The rendering process consists of three stages: trigger, render, and commit. Let's take a look at these in more detail.
+### The Trigger Stage
+The trigger stage occurs when React detects that something has changed and that the user interface might need to be updated. This change is often due to an update in the state or props.
+In the Counter example, clicking the increment or decrement button triggers React to show the new count value
+### The Render Stage
+Once the trigger happens, React enters the render stage. Here, React re-evaluates your components and figures out what to display.
+
+To do this, React uses a lightweight copy of the "real" DOM. This is called the virtual DOM. With the virtual DOM, React can quickly check what needs to change in the component.
+For the Counter component, the render stage is the point where React runs the functions again with the new count value. React recalculates what the <h1>{count}</h1> part of the component should look like based on the updated count value, but you won't see any changes on the screen until the next stage – commit.
+
+### The Commit Stage
+The commit stage is where React takes the prepared changes from the virtual DOM and applies them to the real DOM. In other words, this is the stage where you see the final result on the screen.
+
+To make this happen, React compares the virtual DOM to the actual DOM, identifies only the parts that need updates, and applies those changes to the real DOM to update the user interface.
+
+These three processes are extremely fast because React minimizes direct DOM manipulation by calculating changes in the virtual DOM first, then it updates only the parts that need to change in the real DOM.

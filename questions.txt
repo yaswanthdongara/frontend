@@ -12,3 +12,12 @@ A) React 16.8
 
 5) What does state represent in a React component?
 A) Dynamic data that triggers re-renders when changed.
+
+6) What are the three stages of the rendering process in React?
+A) Trigger, render, and commit.
+
+7) Which technology does React use to perfect the render stage by efficiently calculating changes?
+A) Virtual DOM
+
+8) What happens during the commit stage in React's rendering process?
+A) React applies changes from the virtual DOM to the real DOM.
