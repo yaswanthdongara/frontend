@@ -630,7 +630,7 @@ In the Counter example, clicking the increment or decrement button triggers Reac
 Once the trigger happens, React enters the render stage. Here, React re-evaluates your components and figures out what to display.
 
 To do this, React uses a lightweight copy of the "real" DOM. This is called the virtual DOM. With the virtual DOM, React can quickly check what needs to change in the component.
-For the Counter component, the render stage is the point where React runs the functions again with the new count value. React recalculates what the <h1>{count}</h1> part of the component should look like based on the updated count value, but you won't see any changes on the screen until the next stage – commit.
+For the Counter component, the render stage is the point where React runs the functions again with the new count value. React recalculates what the {count} part of the component should look like based on the updated count value, but you won't see any changes on the screen until the next stage – commit.
 
 ### The Commit Stage
 The commit stage is where React takes the prepared changes from the virtual DOM and applies them to the real DOM. In other words, this is the stage where you see the final result on the screen.
@@ -638,3 +638,103 @@ The commit stage is where React takes the prepared changes from the virtual DOM 
 To make this happen, React compares the virtual DOM to the actual DOM, identifies only the parts that need updates, and applies those changes to the real DOM to update the user interface.
 
 These three processes are extremely fast because React minimizes direct DOM manipulation by calculating changes in the virtual DOM first, then it updates only the parts that need to change in the real DOM.
+---------------------------------------------------------------------------------------------------------------------------------------------
+19-Nov-2026(Thursday)
+
+## How Do You Update Objects in State?
+React treats state as immutable, meaning you should not modify it directly.
+### Why Direct State Mutation Doesn't Work
+```
+import { useState } from "react";
+
+function Profile() {
+  const [user, setUser] = useState({
+    name: "John Doe",
+    age: 31,
+    city: "LA",
+  });
+
+  // Change user age directly
+  const handleAgeChange = (e) => {
+    user.age = e.target.value;
+    console.log(user);
+  };
+
+  return (
+    <div>
+      <h1>User Profile</h1>
+      <p>Name: {user.name}</p>
+      <p>Age: {user.age}</p>
+      <p>City: {user.city}</p>
+
+      <h2>Update User Age </h2>
+      <input type="number" value={user.age} onChange={handleAgeChange} />
+    </div>
+  );
+}
+
+export default Profile;
+```
+This code will not work because you're directly modifying the user.age property.
+
+Even though console.log(user) will show the new age in the console, React won't re-render the component to show it in the user interface because you didn't use the setter function, setUser.
+### Using the Setter Function
+To update an object directly in the state, you need to use the setter function to create a new object with the updated value. For example:
+```
+const handleAgeChange = (e) => {
+  setUser({
+    age: e.target.value,
+  });
+};
+```
+That works. But if you look at the page now, the user's age gets updated, but the values for the name and city are lost.
+
+This is because the new object you passed to the setter function only contained a key/value pair for age.
+### Preserving State With an Updater Function and Spread Syntax
+To prevent this from happening, you can copy the existing object first, then update only the property you want to update, in this case, age.
+
+To do this, you can pass a special function called an updater function to your setter function, setUser. The updater function takes the pending state as an argument, here, called prevUser, and should return the next state:
+```
+const handleAgeChange = (e) => {
+  setUser((prevUser) => {
+    const updatedUser = { ...prevUser, age: e.target.value };
+    console.log('Previous State:', prevUser);
+    console.log('Updated State:', updatedUser);
+    return updatedUser;
+  });
+};
+```
+Here's the full code now:
+```
+import { useState } from "react";
+
+function Profile() {
+  const [user, setUser] = useState({ name: "John Doe", age: 31, city: "LA" });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setUser((prevUser) => ({...prevUser, [name]: value}));
+  };
+
+  return (
+    <div>
+      <h1>User Profile</h1>
+      <p>Name: {user.name}</p>
+      <p>Age: {user.age}</p>
+      <p>City: {user.city}</p>
+
+      <h2>Update User Age </h2>
+      <input type="number" name="age" value={user.age} onChange={handleChange} />
+
+      <h2>Update User Name </h2>
+      <input type="text" name="name" value={user.name} onChange={handleChange} />
+
+      <h2>Update User City </h2>
+      <input type="text" name="city" value={user.city} onChange={handleChange} />
+    </div>
+  );
+}
+
+export default Profile;
+```

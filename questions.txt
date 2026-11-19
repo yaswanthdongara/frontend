@@ -21,3 +21,9 @@ A) Virtual DOM
 
 8) What happens during the commit stage in React's rendering process?
 A) React applies changes from the virtual DOM to the real DOM.
+
+9) How does React treat state in a component?
+A) As immutable, meaning it should not be modified directly.
+
+10) How should you update an object stored in React state?
+A) Use the setter function to create a new object.
